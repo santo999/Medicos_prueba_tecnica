@@ -1,0 +1,121 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "backend",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Paciente": {
+      "get": {
+        "tags": [
+          "Paciente"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Paciente"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePacienteDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePacienteDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePacienteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreatePacienteDto": {
+        "required": [
+          "correoElectronico",
+          "direccion",
+          "estado",
+          "fechaNacimiento",
+          "genero",
+          "nombrePaciente",
+          "numeroDocumento",
+          "telefono",
+          "tipoDocumento"
+        ],
+        "type": "object",
+        "properties": {
+          "tipoDocumento": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "numeroDocumento": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "nombrePaciente": {
+            "maxLength": 120,
+            "minLength": 0,
+            "type": "string"
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "format": "date"
+          },
+          "correoElectronico": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "genero": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "direccion": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "telefono": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "estado": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Paciente"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+-- Database script: Medicos
+-- Contains the Paciente table and the stored procedures GetAllPacientes and CreatePaciente.
+
+IF DB_ID('Medicos') IS NULL
+    CREATE DATABASE Medicos;
+GO
+
+USE Medicos;
+GO
+
+-- Table
+IF OBJECT_ID('dbo.Paciente', 'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.Paciente (
+        Id                 INT IDENTITY(1,1) NOT NULL,
+        tipo_documento     VARCHAR(50)  NULL,
+        numero_documento   VARCHAR(20)  NULL,
+        nombre_paciente    VARCHAR(120) NULL,
+        fecha_nacimiento   DATETIME     NULL,
+        correo_electronico VARCHAR(100) NULL,
+        genero             VARCHAR(20)  NULL,
+        direccion          VARCHAR(100) NULL,
+        telefono           VARCHAR(20)  NULL,
+        estado             VARCHAR(20)  NULL
+    );
+
+    CREATE UNIQUE NONCLUSTERED INDEX index_numero_tipo
+        ON dbo.Paciente (numero_documento, tipo_documento);
+END
+GO
+
+-- Stored procedures
+CREATE OR ALTER PROCEDURE dbo.GetAllPacientes
+AS
+BEGIN
+    SELECT *
+    FROM Medicos.dbo.Paciente
+    ORDER BY Id;
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.CreatePaciente
+    @tipo_documento     VARCHAR(50),
+    @numero_documento   VARCHAR(20),
+    @nombre_paciente    VARCHAR(120),
+    @fecha_nacimiento   DATETIME,
+    @correo_electronico VARCHAR(100),
+    @genero             VARCHAR(20),
+    @direccion          VARCHAR(100),
+    @telefono           VARCHAR(20),
+    @estado             VARCHAR(20)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Medicos.dbo.Paciente
+        (tipo_documento, numero_documento, nombre_paciente, fecha_nacimiento,
+         correo_electronico, genero, direccion, telefono, estado)
+    VALUES
+        (@tipo_documento, @numero_documento, @nombre_paciente, @fecha_nacimiento,
+         @correo_electronico, @genero, @direccion, @telefono, @estado);
+
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS Id;
+END
+GO
