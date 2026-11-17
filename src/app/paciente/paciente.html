@@ -1,0 +1,112 @@
+<div class="p-4">
+  <form class="mb-6 grid grid-cols-3 gap-4" [formGroup]="form" (ngSubmit)="createPaciente()">
+    <label class="flex flex-col text-sm">
+      Tipo documento
+      <select class="border border-gray-300 p-2" formControlName="tipoDocumento">
+        @for (tipo of tiposDocumento; track tipo) {
+          <option [value]="tipo">{{ tipo }}</option>
+        }
+      </select>
+      @if (form.controls.tipoDocumento.touched && form.controls.tipoDocumento.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <label class="flex flex-col text-sm">
+      Número documento
+      <input class="border border-gray-300 p-2" type="text" formControlName="numeroDocumento" />
+      @if (form.controls.numeroDocumento.touched && form.controls.numeroDocumento.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <label class="flex flex-col text-sm">
+      Nombre
+      <input class="border border-gray-300 p-2" type="text" formControlName="nombrePaciente" />
+      @if (form.controls.nombrePaciente.touched && form.controls.nombrePaciente.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <label class="flex flex-col text-sm">
+      Fecha nacimiento
+      <input class="border border-gray-300 p-2" type="date" formControlName="fechaNacimiento" />
+      @if (form.controls.fechaNacimiento.touched && form.controls.fechaNacimiento.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <label class="flex flex-col text-sm">
+      Correo
+      <input class="border border-gray-300 p-2" type="email" formControlName="correoElectronico" />
+      @if (form.controls.correoElectronico.touched && form.controls.correoElectronico.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <label class="flex flex-col text-sm">
+      Género
+      <input class="border border-gray-300 p-2" type="text" formControlName="genero" />
+      @if (form.controls.genero.touched && form.controls.genero.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <label class="flex flex-col text-sm">
+      Dirección
+      <input class="border border-gray-300 p-2" type="text" formControlName="direccion" />
+      @if (form.controls.direccion.touched && form.controls.direccion.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <label class="flex flex-col text-sm">
+      Teléfono
+      <input class="border border-gray-300 p-2" type="tel" formControlName="telefono" />
+      @if (form.controls.telefono.touched && form.controls.telefono.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <label class="flex flex-col text-sm">
+      Estado
+      <input class="border border-gray-300 p-2" type="text" formControlName="estado" />
+      @if (form.controls.estado.touched && form.controls.estado.invalid) {
+        <span class="text-red-600">Valor inválido</span>
+      }
+    </label>
+    <div class="col-span-3 flex items-center gap-4">
+      <button class="bg-blue-600 px-4 py-2 text-white" type="submit">Crear paciente</button>
+      @if (errorMessage()) {
+        <span class="text-red-600">{{ errorMessage() }}</span>
+      }
+    </div>
+  </form>
+
+  <table class="w-full border border-gray-300 text-left">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="border border-gray-300 p-2">Tipo doc.</th>
+        <th class="border border-gray-300 p-2">Número doc.</th>
+        <th class="border border-gray-300 p-2">Nombre</th>
+        <th class="border border-gray-300 p-2">Fecha nacimiento</th>
+        <th class="border border-gray-300 p-2">Correo</th>
+        <th class="border border-gray-300 p-2">Género</th>
+        <th class="border border-gray-300 p-2">Dirección</th>
+        <th class="border border-gray-300 p-2">Teléfono</th>
+        <th class="border border-gray-300 p-2">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of pacientes(); track p.id) {
+        <tr>
+          <td class="border border-gray-300 p-2">{{ p.tipoDocumento }}</td>
+          <td class="border border-gray-300 p-2">{{ p.numeroDocumento }}</td>
+          <td class="border border-gray-300 p-2">{{ p.nombrePaciente }}</td>
+          <td class="border border-gray-300 p-2">{{ p.fechaNacimiento }}</td>
+          <td class="border border-gray-300 p-2">{{ p.correoElectronico }}</td>
+          <td class="border border-gray-300 p-2">{{ p.genero }}</td>
+          <td class="border border-gray-300 p-2">{{ p.direccion }}</td>
+          <td class="border border-gray-300 p-2">{{ p.telefono }}</td>
+          <td class="border border-gray-300 p-2">{{ p.estado }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td class="p-2 text-center" colspan="9">Sin pacientes</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
